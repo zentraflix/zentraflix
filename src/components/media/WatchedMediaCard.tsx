@@ -23,7 +23,6 @@ export interface WatchedMediaCardProps {
   media: MediaItem;
   closable?: boolean;
   onClose?: () => void;
-  onShowDetails?: (media: MediaItem) => void;
 }
 
 export function WatchedMediaCard(props: WatchedMediaCardProps) {
@@ -47,7 +46,6 @@ export function WatchedMediaCard(props: WatchedMediaCardProps) {
       percentage={percentage}
       onClose={props.onClose}
       closable={props.closable}
-      onShowDetails={props.onShowDetails}
     />
   );
 }

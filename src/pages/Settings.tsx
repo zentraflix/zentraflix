@@ -23,7 +23,6 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { useSettingsState } from "@/hooks/useSettingsState";
 import { AccountActionsPart } from "@/pages/parts/settings/AccountActionsPart";
 import { AccountEditPart } from "@/pages/parts/settings/AccountEditPart";
-import { AppearancePart } from "@/pages/parts/settings/AppearancePart";
 import { CaptionsPart } from "@/pages/parts/settings/CaptionsPart";
 import { ConnectionsPart } from "@/pages/parts/settings/ConnectionsPart";
 import { DeviceListPart } from "@/pages/parts/settings/DeviceListPart";
@@ -155,7 +154,6 @@ export function SettingsPage() {
   const setEnableDetailsModal = usePreferencesStore(
     (s) => s.setEnableDetailsModal,
   );
-
   const enableSourceOrder = usePreferencesStore((s) => s.enableSourceOrder);
   const setEnableSourceOrder = usePreferencesStore(
     (s) => s.setEnableSourceOrder,
@@ -235,13 +233,13 @@ export function SettingsPage() {
     };
   }, [setPreviewTheme]);
 
-  const setThemeWithPreview = useCallback(
-    (theme: string) => {
-      state.theme.set(theme === "default" ? null : theme);
-      setPreviewTheme(theme);
-    },
-    [state.theme, setPreviewTheme],
-  );
+  // const setThemeWithPreview = useCallback(
+  //   (theme: string) => {
+  //     state.theme.set(theme === "default" ? null : theme);
+  //     setPreviewTheme(theme);
+  //   },
+  //   [state.theme, setPreviewTheme],
+  // );
 
   const saveChanges = useCallback(async () => {
     if (account && backendUrl) {
@@ -375,24 +373,13 @@ export function SettingsPage() {
             setenableSourceOrder={state.enableSourceOrder.set}
           />
         </div>
-        <div id="settings-appearance" className="mt-28">
-          <AppearancePart
-            active={previewTheme ?? "default"}
-            inUse={activeTheme ?? "default"}
-            setTheme={setThemeWithPreview}
-            enableDiscover={state.enableDiscover.state}
-            setEnableDiscover={state.enableDiscover.set}
-            enableDetailsModal={state.enableDetailsModal.state}
-            setEnableDetailsModal={state.enableDetailsModal.set}
-          />
-        </div>
         <div id="settings-captions" className="mt-28">
           <CaptionsPart
             styling={state.subtitleStyling.state}
             setStyling={state.subtitleStyling.set}
           />
         </div>
-        <div id="settings-connection" className="mt-28">
+        <div id="settings-connection" className="mt-28 mb-10">
           <ConnectionsPart
             backendUrl={state.backendUrl.state}
             setBackendUrl={state.backendUrl.set}

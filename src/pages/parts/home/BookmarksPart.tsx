@@ -15,10 +15,8 @@ const LONG_PRESS_DURATION = 500; // 0.5 seconds
 
 export function BookmarksPart({
   onItemsChange,
-  onShowDetails,
 }: {
   onItemsChange: (hasItems: boolean) => void;
-  onShowDetails?: (media: MediaItem) => void;
 }) {
   const { t } = useTranslation();
   const progressItems = useProgressStore((s) => s.items);
@@ -118,7 +116,6 @@ export function BookmarksPart({
               media={v}
               closable={editing}
               onClose={() => removeBookmark(v.id)}
-              onShowDetails={onShowDetails}
             />
           </div>
         ))}
