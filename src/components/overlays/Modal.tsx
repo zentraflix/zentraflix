@@ -173,6 +173,10 @@ interface DetailsContent {
   language?: string;
   voteAverage?: number;
   voteCount?: number;
+  releaseDate?: string;
+  rating?: string;
+  director?: string;
+  actors?: string[];
 }
 
 function DetailsContent({ data }: { data: DetailsContent }) {
@@ -189,6 +193,15 @@ function DetailsContent({ data }: { data: DetailsContent }) {
       return `${Math.floor(count / 1000)}K+`;
     }
     return count.toString();
+  };
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return null;
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   return (
@@ -228,6 +241,17 @@ function DetailsContent({ data }: { data: DetailsContent }) {
               {data.language.toUpperCase()}
             </div>
           )}
+          {data.releaseDate && (
+            <div className="flex items-center gap-1 text-white/80">
+              <span className="font-medium">Release Date:</span>{" "}
+              {formatDate(data.releaseDate)}
+            </div>
+          )}
+          {data.rating && (
+            <div className="flex items-center gap-1 text-white/80">
+              <span className="font-medium">Rating:</span> {data.rating}
+            </div>
+          )}
           {data.voteAverage !== undefined &&
             data.voteCount !== undefined &&
             data.voteCount > 0 && (
@@ -240,6 +264,23 @@ function DetailsContent({ data }: { data: DetailsContent }) {
               </div>
             )}
         </div>
+
+        {/* Director and Cast */}
+        <div className="space-y-4 mb-6">
+          {data.director && (
+            <div className="text-xs">
+              <span className="font-medium text-white/80">Director:</span>{" "}
+              <span className="text-white/70">{data.director}</span>
+            </div>
+          )}
+          {data.actors && data.actors.length > 0 && (
+            <div className="text-xs">
+              <span className="font-medium text-white/80">Cast:</span>{" "}
+              <span className="text-white/70">{data.actors.join(", ")}</span>
+            </div>
+          )}
+        </div>
+
         {/* Genres */}
         {data.genres && data.genres.length > 0 && (
           <div className="flex flex-wrap gap-2">

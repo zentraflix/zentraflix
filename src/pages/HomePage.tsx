@@ -88,6 +88,16 @@ export function HomePage() {
           language: movieDetails.original_language,
           voteAverage: movieDetails.vote_average,
           voteCount: movieDetails.vote_count,
+          releaseDate: movieDetails.release_date,
+          rating: movieDetails.release_dates?.results?.find(
+            (r) => r.iso_3166_1 === "US",
+          )?.release_dates?.[0]?.certification,
+          director: movieDetails.credits?.crew?.find(
+            (person) => person.job === "Director",
+          )?.name,
+          actors: movieDetails.credits?.cast
+            ?.slice(0, 5)
+            .map((actor) => actor.name),
         });
       } else {
         const showDetails = details as TMDBShowData;
@@ -101,6 +111,16 @@ export function HomePage() {
           language: showDetails.original_language,
           voteAverage: showDetails.vote_average,
           voteCount: showDetails.vote_count,
+          releaseDate: showDetails.first_air_date,
+          rating: showDetails.content_ratings?.results?.find(
+            (r) => r.iso_3166_1 === "US",
+          )?.rating,
+          director: showDetails.credits?.crew?.find(
+            (person) => person.job === "Director",
+          )?.name,
+          actors: showDetails.credits?.cast
+            ?.slice(0, 5)
+            .map((actor) => actor.name),
         });
       }
     } catch (err) {
