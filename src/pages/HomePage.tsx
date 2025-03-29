@@ -3,7 +3,14 @@ import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { To, useNavigate } from "react-router-dom";
 
+import { getMediaBackdrop, getMediaDetails } from "@/backend/metadata/tmdb";
+import {
+  TMDBContentTypes,
+  TMDBMovieData,
+  TMDBShowData,
+} from "@/backend/metadata/types/tmdb";
 import { WideContainer } from "@/components/layout/WideContainer";
+import { DetailsModal, useModal } from "@/components/overlays/Modal";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useRandomTranslation } from "@/hooks/useRandomTranslation";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
@@ -15,6 +22,7 @@ import { WatchingPart } from "@/pages/parts/home/WatchingPart";
 import { SearchListPart } from "@/pages/parts/search/SearchListPart";
 import { SearchLoadingPart } from "@/pages/parts/search/SearchLoadingPart";
 import { usePreferencesStore } from "@/stores/preferences";
+import { MediaItem } from "@/utils/mediaTypes";
 
 import { Button } from "./About";
 
@@ -50,7 +58,9 @@ export function HomePage() {
   const s = useSearch(search);
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [showWatching, setShowWatching] = useState(false);
-  // const modal = useModal("notice");
+  const [detailsData, setDetailsData] = useState<any>();
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
+  const detailsModal = useModal("details");
 
   const handleClick = (path: To) => {
     window.scrollTo(0, 0);
@@ -58,6 +68,48 @@ export function HomePage() {
   };
 
   const enableDiscover = usePreferencesStore((state) => state.enableDiscover);
+
+  const handleShowDetails = async (media: MediaItem) => {
+    setIsLoadingDetails(true);
+    try {
+      const type =
+        media.type === "movie" ? TMDBContentTypes.MOVIE : TMDBContentTypes.TV;
+      const details = await getMediaDetails(media.id, type);
+      const backdropUrl = getMediaBackdrop(details.backdrop_path);
+
+      if (type === TMDBContentTypes.MOVIE) {
+        const movieDetails = details as TMDBMovieData;
+        setDetailsData({
+          title: movieDetails.title,
+          overview: movieDetails.overview,
+          backdrop: backdropUrl,
+          runtime: movieDetails.runtime,
+          genres: movieDetails.genres,
+          language: movieDetails.original_language,
+          voteAverage: movieDetails.vote_average,
+          voteCount: movieDetails.vote_count,
+        });
+      } else {
+        const showDetails = details as TMDBShowData;
+        setDetailsData({
+          title: showDetails.name,
+          overview: showDetails.overview,
+          backdrop: backdropUrl,
+          episodes: showDetails.number_of_episodes,
+          seasons: showDetails.number_of_seasons,
+          genres: showDetails.genres,
+          language: showDetails.original_language,
+          voteAverage: showDetails.vote_average,
+          voteCount: showDetails.vote_count,
+        });
+      }
+    } catch (err) {
+      console.error("Failed to fetch media details:", err);
+    } finally {
+      setIsLoadingDetails(false);
+    }
+    detailsModal.show();
+  };
 
   // const { loggedIn } = useAuth(); // Adjust padding for popup show button based on logged in state
 
@@ -184,11 +236,20 @@ export function HomePage() {
         {s.loading ? (
           <SearchLoadingPart />
         ) : s.searching ? (
-          <SearchListPart searchQuery={search} />
+          <SearchListPart
+            searchQuery={search}
+            onShowDetails={handleShowDetails}
+          />
         ) : (
           <div className="flex flex-col gap-8">
-            <WatchingPart onItemsChange={setShowWatching} />
-            <BookmarksPart onItemsChange={setShowBookmarks} />
+            <WatchingPart
+              onItemsChange={setShowWatching}
+              onShowDetails={handleShowDetails}
+            />
+            <BookmarksPart
+              onItemsChange={setShowBookmarks}
+              onShowDetails={handleShowDetails}
+            />
           </div>
         )}
         {!(showBookmarks || showWatching) && !enableDiscover ? (
@@ -213,6 +274,12 @@ export function HomePage() {
           </div>
         </div>
       )}
+
+      <DetailsModal
+        id="details"
+        data={detailsData}
+        isLoading={isLoadingDetails}
+      />
     </HomeLayout>
   );
 }

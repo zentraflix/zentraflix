@@ -6,7 +6,16 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useCopyToClipboard } from "react-use";
 
-import { mediaItemToId } from "@/backend/metadata/tmdb";
+import {
+  getMediaBackdrop,
+  getMediaDetails,
+  mediaItemToId,
+} from "@/backend/metadata/tmdb";
+import {
+  TMDBContentTypes,
+  TMDBMovieData,
+  TMDBShowData,
+} from "@/backend/metadata/types/tmdb";
 import { DotList } from "@/components/text/DotList";
 import { Flare } from "@/components/utils/Flare";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
@@ -18,6 +27,7 @@ import { Button } from "../buttons/Button";
 import { IconPatch } from "../buttons/IconPatch";
 import { Icon, Icons } from "../Icon";
 import { InfoPopout } from "./InfoPopout";
+import { DetailsModal, useModal } from "../overlays/Modal";
 
 export interface MediaCardProps {
   media: MediaItem;
@@ -31,6 +41,7 @@ export interface MediaCardProps {
   percentage?: number;
   closable?: boolean;
   onClose?: () => void;
+  onShowDetails?: (media: MediaItem) => void;
 }
 
 function checkReleased(media: MediaItem): boolean {
@@ -64,6 +75,7 @@ function MediaCardContent({
   handleMouseLeave,
   link,
   isHoveringCard,
+  onShowDetails,
 }: MediaCardProps & {
   overlayVisible: boolean;
   setOverlayVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -101,20 +113,6 @@ function MediaCardContent({
   if (!isReleased()) {
     dotListContent.push(t("media.unreleased"));
   }
-
-  const handleMoreInfoClick = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => {
-    e.preventDefault();
-
-    const searchParam = encodeURIComponent(encodeURI(media.id));
-    const url =
-      media.type === "movie"
-        ? `https://www.themoviedb.org/movie/${searchParam}`
-        : `https://www.themoviedb.org/tv/${searchParam}`;
-
-    window.open(url, "_blank");
-  };
 
   const handleCopyClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
@@ -267,12 +265,16 @@ function MediaCardContent({
                 <Button
                   theme="secondary"
                   className={classNames(
-                    "w-[86%] md:w-[90%] h-12 rounded-lg px-4 py-2 my-1 transition-transform hover:scale-105 duration-100", // Button Size & Hover
-                    "text-md text-white flex items-center justify-center", // Centering Content
-                    "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md", // Background
-                    "border-2 border-gray-400 border-opacity-20", // Border
+                    "w-[86%] md:w-[90%] h-12 rounded-lg px-4 py-2 my-1 transition-transform hover:scale-105 duration-100",
+                    "text-md text-white flex items-center justify-center",
+                    "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md",
+                    "border-2 border-gray-400 border-opacity-20",
                   )}
-                  onClick={handleMoreInfoClick}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (onShowDetails) onShowDetails(media);
+                  }}
                 >
                   More Info
                 </Button>
@@ -281,10 +283,10 @@ function MediaCardContent({
                   <Button
                     theme="secondary"
                     className={classNames(
-                      "w-[86%] md:w-[90%] h-12 rounded-lg px-4 py-2 my-1 transition-transform hover:scale-105 duration-100", // Button Size & Hover
-                      "text-md text-white flex items-center justify-center", // Centering Content
-                      "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md", // Background
-                      "border-2 border-gray-400 border-opacity-20", // Border
+                      "w-[86%] md:w-[90%] h-12 rounded-lg px-4 py-2 my-1 transition-transform hover:scale-105 duration-100",
+                      "text-md text-white flex items-center justify-center",
+                      "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md",
+                      "border-2 border-gray-400 border-opacity-20",
                     )}
                     href={link}
                     onClick={handleCopyClick}
@@ -303,10 +305,10 @@ function MediaCardContent({
                 <Button
                   theme="secondary"
                   className={classNames(
-                    "w-[86%] md:w-[90%] h-12 rounded-lg px-4 py-2 my-1 transition-transform hover:scale-105 duration-100", // Button Size & Hover
-                    "text-md text-white flex items-center justify-center", // Centering Content
-                    "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md", // Background
-                    "border-2 border-gray-400 border-opacity-20", // Border
+                    "w-[86%] md:w-[90%] h-12 rounded-lg px-4 py-2 my-1 transition-transform hover:scale-105 duration-100",
+                    "text-md text-white flex items-center justify-center",
+                    "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md",
+                    "border-2 border-gray-400 border-opacity-20",
                   )}
                   onClick={() => setOverlayVisible(false)}
                 >
@@ -368,6 +370,7 @@ function MediaCardContent({
 }
 
 export function MediaCard(props: MediaCardProps) {
+  const { media, onShowDetails } = props;
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [showHoverInfo, setShowHoverInfo] = useState(false);
@@ -376,6 +379,9 @@ export function MediaCard(props: MediaCardProps) {
   const [isHoveringInfo, setIsHoveringInfo] = useState(false);
   const [isBigScreen, setIsBigScreen] = useState(false);
   const enablePopDetails = usePreferencesStore((s) => s.enablePopDetails);
+  const [detailsData, setDetailsData] = useState<any>();
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
+  const detailsModal = useModal("details");
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -459,16 +465,73 @@ export function MediaCard(props: MediaCardProps) {
     },
   };
 
+  const handleShowDetails = useCallback(async () => {
+    if (onShowDetails) {
+      onShowDetails(media);
+      return;
+    }
+
+    setIsLoadingDetails(true);
+    try {
+      const type =
+        media.type === "movie" ? TMDBContentTypes.MOVIE : TMDBContentTypes.TV;
+      const details = await getMediaDetails(media.id, type);
+      const backdropUrl = getMediaBackdrop(details.backdrop_path);
+
+      if (type === TMDBContentTypes.MOVIE) {
+        const movieDetails = details as TMDBMovieData;
+        setDetailsData({
+          title: movieDetails.title,
+          overview: movieDetails.overview,
+          backdrop: backdropUrl,
+          runtime: movieDetails.runtime,
+          genres: movieDetails.genres,
+          language: movieDetails.original_language,
+          voteAverage: movieDetails.vote_average,
+          voteCount: movieDetails.vote_count,
+        });
+      } else {
+        const showDetails = details as TMDBShowData;
+        setDetailsData({
+          title: showDetails.name,
+          overview: showDetails.overview,
+          backdrop: backdropUrl,
+          episodes: showDetails.number_of_episodes,
+          seasons: showDetails.number_of_seasons,
+          genres: showDetails.genres,
+          language: showDetails.original_language,
+          voteAverage: showDetails.vote_average,
+          voteCount: showDetails.vote_count,
+        });
+      }
+    } catch (err) {
+      console.error("Failed to fetch media details:", err);
+    } finally {
+      setIsLoadingDetails(false);
+    }
+    detailsModal.show();
+  }, [media, detailsModal, onShowDetails]);
+
   const content = (
-    <MediaCardContent
-      {...props}
-      overlayVisible={overlayVisible}
-      setOverlayVisible={setOverlayVisible}
-      handleMouseEnter={handleMouseEnter}
-      handleMouseLeave={handleMouseLeave}
-      link={link}
-      isHoveringCard={isHoveringCard}
-    />
+    <>
+      <MediaCardContent
+        {...props}
+        overlayVisible={overlayVisible}
+        setOverlayVisible={setOverlayVisible}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+        link={link}
+        isHoveringCard={isHoveringCard}
+        onShowDetails={handleShowDetails}
+      />
+      {!onShowDetails && (
+        <DetailsModal
+          id="details"
+          data={detailsData}
+          isLoading={isLoadingDetails}
+        />
+      )}
+    </>
   );
 
   if (!canLink)
@@ -490,8 +553,22 @@ export function MediaCard(props: MediaCardProps) {
           )}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={(e) => {
+            if (overlayVisible || e.defaultPrevented) {
+              e.preventDefault();
+            }
+          }}
         >
-          {content}
+          <MediaCardContent
+            {...props}
+            overlayVisible={overlayVisible}
+            setOverlayVisible={setOverlayVisible}
+            handleMouseEnter={handleMouseEnter}
+            handleMouseLeave={handleMouseLeave}
+            link={link}
+            isHoveringCard={isHoveringCard}
+            onShowDetails={handleShowDetails}
+          />
         </Link>
       ) : (
         <div
@@ -503,7 +580,16 @@ export function MediaCard(props: MediaCardProps) {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {content}
+          <MediaCardContent
+            {...props}
+            overlayVisible={overlayVisible}
+            setOverlayVisible={setOverlayVisible}
+            handleMouseEnter={handleMouseEnter}
+            handleMouseLeave={handleMouseLeave}
+            link={link}
+            isHoveringCard={isHoveringCard}
+            onShowDetails={handleShowDetails}
+          />
         </div>
       )}
 

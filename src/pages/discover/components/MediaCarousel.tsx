@@ -1,5 +1,6 @@
 import { MediaCard } from "@/components/media/MediaCard";
 import { Media } from "@/pages/discover/common";
+import { MediaItem } from "@/utils/mediaTypes";
 
 import { CarouselNavButtons } from "./CarouselNavButtons";
 
@@ -11,6 +12,7 @@ interface MediaCarouselProps {
   carouselRefs: React.MutableRefObject<{
     [key: string]: HTMLDivElement | null;
   }>;
+  onShowDetails?: (media: MediaItem) => void;
 }
 
 function MediaCardSkeleton() {
@@ -30,6 +32,7 @@ export function MediaCarousel({
   isTVShow,
   isMobile,
   carouselRefs,
+  onShowDetails,
 }: MediaCarouselProps) {
   const categorySlug = category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const browser = !!window.chrome;
@@ -124,6 +127,7 @@ export function MediaCarousel({
                           ? parseInt(media.release_date.split("-")[0], 10)
                           : undefined,
                     }}
+                    onShowDetails={onShowDetails}
                   />
                 </div>
               ))
