@@ -15,6 +15,7 @@ import { useAsync, useAsyncFn } from "react-use";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 import { Loading } from "@/components/layout/Loading";
+import { SplashScreen } from "@/components/layout/SplashScreen";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useAuthRestore } from "@/hooks/auth/useAuthRestore";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
@@ -177,6 +178,7 @@ root.render(
     <ErrorBoundary>
       <HelmetProvider>
         <Suspense fallback={<LoadingScreen type="lazy" />}>
+          <SplashScreen />
           <ExtensionStatus />
           <ThemeProvider applyGlobal>
             <ProgressSyncer />
