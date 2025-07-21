@@ -1,14 +1,14 @@
 {
     "about": {
-        "description": "P-Stream är en vidareutveckling (”fork”) av Movie-Web som är garanterad att fortsätta fungera även efter att movie-web.app stängts ner. P-Stream körs på en privat, egenhostad VPS. Jag driver den här sidan med förlust; det finns väldigt lite reklam eftersom jag tror på fri tillgång till media.",
+        "description": "ZentraFlix är en vidareutveckling (”fork”) av Movie-Web som är garanterad att fortsätta fungera även efter att movie-web.app stängts ner. ZentraFlix körs på en privat, egenhostad VPS. Jag driver den här sidan med förlust; det finns väldigt lite reklam eftersom jag tror på fri tillgång till media.",
         "faqTitle": "Vanliga frågor",
         "q1": {
-            "body": "P-Stream hostar ingen innehåll. När du klickar på något att titta på, söks internet efter det valda mediet (På laddningsskärmen och i fliken 'Videokällor' kan du se vilken källa du använder). Media laddas aldrig upp av P-Stream, allt sker genom sökmotorn.",
+            "body": "ZentraFlix hostar ingen innehåll. När du klickar på något att titta på, söks internet efter det valda mediet (På laddningsskärmen och i fliken 'Videokällor' kan du se vilken källa du använder). Media laddas aldrig upp av ZentraFlix, allt sker genom sökmotorn.",
             "title": "Var kommer innehållet ifrån?",
             "section": "general"
         },
         "q2": {
-            "body": "Det går inte att begära en show eller film, P-Stream hanterar inte något innehåll. Allt innehåll visas genom källor på internet.",
+            "body": "Det går inte att begära en show eller film, ZentraFlix hanterar inte något innehåll. Allt innehåll visas genom källor på internet.",
             "title": "Var kan jag begära en serie eller film?",
             "section": "sök"
         },
@@ -17,11 +17,11 @@
             "title": "Sökresultaten visar showen eller filmen, varför kan jag inte spela upp den?",
             "section": "sök"
         },
-        "title": "Om P-Stream",
+        "title": "Om ZentraFlix",
         "help": "Hittar du inget svar? <0>Få support här.</0>",
         "q6": {
             "body": "Inte än, men du kan installera den som en PWA (Progressive Web App). På iOS, gå in på Safari → Dela → Lägg till på startskärmen. På Android, gå in på Chrome → 3 punkter → Lägg till på startskärmen. En experimentell APK finns tillgänglig via vår Discord, men den rekommenderas inte.",
-            "title": "Finns det en P-stream-app?",
+            "title": "Finns det en ZentraFlix-app?",
             "section": "general"
         },
         "sections": {
@@ -54,7 +54,7 @@
         },
         "q5": {
             "title": "Hur kan jag få veta mer?",
-            "body": "P-Stream har en Discord-server som kan hittas högst upp på sidan!",
+            "body": "ZentraFlix har en Discord-server som kan hittas högst upp på sidan!",
             "section": "general"
         },
         "q7": {
@@ -145,7 +145,7 @@
     "footer": {
         "legal": {
             "disclaimer": "Friskriver sig från ansvar",
-            "disclaimerText": "P-Stream hostar inga filer utan länkar endast till filer från tredje part. Eventuella juridiska frågor bör tas upp med källorna till materialet. P-Stream varken ansvarar eller styr över de mediefiler som visas."
+            "disclaimerText": "ZentraFlix hostar inga filer utan länkar endast till filer från tredje part. Eventuella juridiska frågor bör tas upp med källorna till materialet. ZentraFlix varken ansvarar eller styr över de mediefiler som visas."
         },
         "links": {
             "discord": "Discord",
@@ -155,12 +155,12 @@
         "tagline": "Titta på dina favoritprogram och filmer helt gratis."
     },
     "global": {
-        "name": "P-Stream",
+        "name": "ZentraFlix",
         "pages": {
             "about": "Om oss",
             "dmca": "DMCA",
             "login": "Logga in",
-            "pagetitle": "{{title}} - P-Stream",
+            "pagetitle": "{{title}} - ZentraFlix",
             "register": "Registrera",
             "settings": "Inställningar"
         }
@@ -241,7 +241,7 @@
         },
         "menus": {
             "downloads": {
-                "disclaimer": "Nedladdningar görs direkt från leverantören. P-Stream har ingen kontroll över hur nedladdningarna tillhandahålls.",
+                "disclaimer": "Nedladdningar görs direkt från leverantören. ZentraFlix har ingen kontroll över hur nedladdningarna tillhandahålls.",
                 "downloadVideo": "Ladda ner video",
                 "onAndroid": {
                     "1": "För att ladda ner på Android, klicka på nedladdningsknappen och på den nya sidan <bold>trycker och håller</bold> på videon, välj sedan <bold>spara</bold>.",

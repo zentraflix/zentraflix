@@ -1,4 +1,4 @@
-import { ScrapeMedia } from "@p-stream/providers";
+import { ScrapeMedia } from "@ZentraFlix/providers";
 
 import { MakeSlice } from "@/stores/player/slices/types";
 import {
