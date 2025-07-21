@@ -148,7 +148,7 @@ export function Navigation(props: NavigationProps) {
                 className="text-xl text-white tabbable rounded-full backdrop-blur-lg"
               >
                 <IconPatch
-                  icon={Icons.DISCORD}
+                  icon={Icons.TELEGRAM}
                   clickable
                   downsized
                   navigation
