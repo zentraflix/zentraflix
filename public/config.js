@@ -19,5 +19,5 @@ window.__CONFIG__ = {
   VITE_DISALLOWED_IDS: ""
 
   // The m3u8 URL to use for the default setup, the url must NOT end with a slash!
-  VITE_M3U8_PROXY_URL: "https://m3u8-five.vercel.app",
+  VITE_M3U8_PROXY_URL: "https://m3-u8-proxy-chi.vercel.app",
 };
