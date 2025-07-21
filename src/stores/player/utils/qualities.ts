@@ -1,4 +1,4 @@
-import { Qualities, Stream } from "@ZentraFlix/providers";
+import { Qualities, Stream } from "@p-stream/providers";
 
 import { QualityStore } from "@/stores/quality";
 

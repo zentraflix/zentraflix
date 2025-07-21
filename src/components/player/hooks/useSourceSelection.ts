@@ -2,7 +2,7 @@ import {
   EmbedOutput,
   NotFoundError,
   SourcererOutput,
-} from "@ZentraFlix/providers";
+} from "@p-stream/providers";
 import { useAsyncFn } from "react-use";
 
 import { isExtensionActiveCached } from "@/backend/extension/messaging";
