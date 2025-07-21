@@ -17,4 +17,7 @@ window.__CONFIG__ = {
 
   // A comma separated list of disallowed IDs in the case of a DMCA claim - in the format "series-<id>" and "movie-<id>"
   VITE_DISALLOWED_IDS: ""
+
+  // The m3u8 URL to use for the default setup, the url must NOT end with a slash!
+  VITE_M3U8_PROXY_URL: "https://m3u8-five.vercel.app",
 };
