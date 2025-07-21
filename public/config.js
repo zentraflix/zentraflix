@@ -1,7 +1,7 @@
 window.__CONFIG__ = {
   // The URL for the CORS proxy, the URL must NOT end with a slash!
   // If not specified, the onboarding will not allow a "default setup". The user will have to use the extension or set up a proxy themselves
-  VITE_CORS_PROXY_URL: "https://symphonious-gnome-0a72a6.netlify.app",
+  VITE_CORS_PROXY_URL: "https://simple-proxy-zentraflix.choudharyji0604.workers.dev",
 
   // The READ API key to access TMDB
   VITE_TMDB_READ_API_KEY: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNGI0MDFjYzIxNzgyZWUwZmU0NTg2NGY5ZDJkNTlkMyIsIm5iZiI6MTc1MjY0MjI4OS40MDQsInN1YiI6IjY4NzczMmYxYzJjN2U1MzgzMDE2NWYwMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9PcnkWK61xeXXF9h1-SI0eYeoGMfLZHiePfzdtSSYn4",
@@ -19,5 +19,5 @@ window.__CONFIG__ = {
   VITE_DISALLOWED_IDS: ""
 
   // The m3u8 URL to use for the default setup, the url must NOT end with a slash!
-  VITE_M3U8_PROXY_URL: "https://m3-u8-proxy-chi.vercel.app",
+  VITE_M3U8_PROXY_URL: "https://simple-proxy-zentraflix.choudharyji0604.workers.dev",
 };
