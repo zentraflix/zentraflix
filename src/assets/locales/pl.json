@@ -19,7 +19,7 @@
         "title": "O ZentraFlix oraz FAQ (^▽^)",
         "q5": {
             "title": "Jak mogę dowiedzieć się więcej?",
-            "body": "ZentraFlix ma swój serwer Discord, który znajdziesz w nagłówku strony!"
+            "body": "ZentraFlix ma swój serwer Telegram, który znajdziesz w nagłówku strony!"
         },
         "q4": {
             "title": "Co z moimi danymi?",
@@ -37,7 +37,7 @@
             "section": "odtwarzanie"
         },
         "q20": {
-            "body": "FED API jest naszym prywatnym zbieraczem, który pobiera streamy bezpośrednio z Febbox. Każde darmowe konto Febbox zawiera 100 GB/na miesiąc nielimitowanej przepustowości oraz używamy Twojego UI tokenu, aby zebrać treść. Instalacja jest prostrza na przeglądarce PC, ale jest instrukcja na naszym serwerze Discord dla urządzeń mobilnych.",
+            "body": "FED API jest naszym prywatnym zbieraczem, który pobiera streamy bezpośrednio z Febbox. Każde darmowe konto Febbox zawiera 100 GB/na miesiąc nielimitowanej przepustowości oraz używamy Twojego UI tokenu, aby zebrać treść. Instalacja jest prostrza na przeglądarce PC, ale jest instrukcja na naszym serwerze Telegram dla urządzeń mobilnych.",
             "title": "Czym jest FED API?",
             "section": "połączenia"
         },
@@ -58,7 +58,7 @@
             "section": "połączenia"
         },
         "q6": {
-            "body": "Jeszcze nie, ale możesz zainstalować jako PWA (Progresywna Aplikacja Internetowa). Na IOS, w przeglądarce Safara → Udostępnij → Dodaj do ekranu głównego. Na Androidzie, w przeglądarce Google Chrome → Kliknij 3 kropki → Dodaj do ekranu głównego. Eksperymentalna wersja aplikacji jest dostępna na naszym serwerze Discord, ale nie rekomendujemy jej używania.",
+            "body": "Jeszcze nie, ale możesz zainstalować jako PWA (Progresywna Aplikacja Internetowa). Na IOS, w przeglądarce Safara → Udostępnij → Dodaj do ekranu głównego. Na Androidzie, w przeglądarce Google Chrome → Kliknij 3 kropki → Dodaj do ekranu głównego. Eksperymentalna wersja aplikacji jest dostępna na naszym serwerze Telegram, ale nie rekomendujemy jej używania.",
             "title": "Czy istnieje aplikacja ZentraFlix?"
         },
         "q7": {
@@ -201,7 +201,7 @@
             "disclaimerText": "ZentraFlix nie przechowuje żadnych plików, zawiera jedynie łącza do usług stron trzecich. Kwestie prawne należy konsultować z hostami plików i dostawcami. ZentraFlix nie ponosi odpowiedzialności za jakiekolwiek pliki multimedialne prezentowane przez dostawców wideo."
         },
         "links": {
-            "discord": "Discord",
+            "discord": "Telegram",
             "dmca": "DMCA",
             "github": "GitHub",
             "twitter": "Twitter",
@@ -406,7 +406,7 @@
                     },
                     "defaultDescription": "Używa wbudowanego Proxy ZentraFlix. Jest to najłatwiejsza opcja, ale może być wolniejsza przez udostępnianie przepustowości.",
                     "default": "3. Domyślna konfiguracja",
-                    "outro": "Jeśli masz więcej pytań nad tym jak to działa, możesz śmiało zapytać na naszym serwerze! <0>ZentraFlix Discord</0>",
+                    "outro": "Jeśli masz więcej pytań nad tym jak to działa, możesz śmiało zapytać na naszym serwerze! <0>ZentraFlix Telegram</0>",
                     "intro": "ZentraFlix nie umieszcza plików wideo. Polegamy na treściach ze stron trzecich, więc musisz wybrać w jaki sposób platforma ma się z nimi połączyć.",
                     "options": "Twoje Opcje:",
                     "extension": "1. Rozszerzenie",
@@ -640,7 +640,7 @@
                 "6": "Przytrzymaj zakładki, aby edytować lub usunąć!",
                 "8": "Ustaw niestandardowy kolor napisów!",
                 "9": "Migruj swoje konto do nowego backendu w ustawieniach!",
-                "10": "Dołącz do serwera Discord!",
+                "10": "Dołącz do serwera Telegram!",
                 "11": "Użyj [ i ] żeby dostosować prędkość napisów!",
                 "12": "Wciśnij SPACJĘ lub K, aby wznowić/zatrzymać!",
                 "14": "Użyj J lub L, aby pominąć o 10 sekund!",

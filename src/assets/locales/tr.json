@@ -24,7 +24,7 @@
             "section": "genel"
         },
         "q5": {
-            "body": "ZentraFlix’in bir Discord sunucusu var, sayfanın en üst kısmına bak!",
+            "body": "ZentraFlix’in bir Telegram sunucusu var, sayfanın en üst kısmına bak!",
             "title": "Daha fazlasını nasıl bulabilirim?"
         },
         "help": "Bir cevap bulamıyor musunuz? <0>Buradan destek alın.</0>",
@@ -106,7 +106,7 @@
             "disclaimerText": "ZentraFlix herhangi bir dosya barındırmaz, yalnızca 3. parti hizmetlere bağlantı verir. Yasal meseleler, dosya barındırıcıları ve sağlayıcıları ile görüşülmelidir. ZentraFlix, video sağlayıcıları tarafından gösterilen hiçbir medya dosyasından sorumlu değildir."
         },
         "links": {
-            "discord": "Discord",
+            "discord": "Telegram",
             "dmca": "DMCA",
             "github": "GitHub",
             "twitter": "Twitter",
