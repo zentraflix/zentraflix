@@ -23,6 +23,7 @@ import {
 import { conf } from "@/setup/config";
 import { useLanguageStore } from "@/stores/language";
 import { getTmdbLanguageCode } from "@/utils/language";
+import { getUsersCountry } from "@/utils/country";
 
 // Shuffle array utility
 const shuffleArray = <T>(array: T[]): T[] => {
@@ -611,9 +612,10 @@ export function useDiscoverMedia({
                 traktErr,
               );
               // Fall back to TMDB
+              const country = await getUsersCountry();
               data = await fetchTMDBMedia(`/discover/${mediaType}`, {
                 with_watch_providers: id,
-                watch_region: "US",
+                watch_region: country,
               });
               setSectionTitle(
                 mediaType === "movie"
@@ -627,9 +629,10 @@ export function useDiscoverMedia({
             }
           } else {
             // Use TMDB if no Trakt endpoint exists for this provider
+            const country = await getUsersCountry();
             data = await fetchTMDBMedia(`/discover/${mediaType}`, {
               with_watch_providers: id,
-              watch_region: "US",
+              watch_region: country,
             });
             setSectionTitle(
               mediaType === "movie"
