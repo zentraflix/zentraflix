@@ -45,6 +45,7 @@ export interface RuntimeConfig {
   NORMAL_ROUTER: boolean;
   PROXY_URLS: string[];
   M3U8_PROXY_URLS: string[];
+  CORS_PROXY_URL: string;
   BACKEND_URL: string | null;
   DISALLOWED_IDS: string[];
   TURNSTILE_KEY: string | null;
@@ -136,8 +137,10 @@ export function conf(): RuntimeConfig {
       .filter((v) => v.length > 0),
     M3U8_PROXY_URLS: getKey("M3U8_PROXY_URL", "")
       .split(",")
-      .map((v) => v.trim())
-      .filter((v) => v.length > 0),
+      .map((v) => v.trim()),
+    CORS_PROXY_URL: getKey("CORS_PROXY_URL", "")
+      .split(",")
+      .map((v) => v.trim())[0],
     NORMAL_ROUTER: getKey("NORMAL_ROUTER", "false") === "true",
     HAS_ONBOARDING: getKey("HAS_ONBOARDING", "false") === "true",
     ALLOW_AUTOPLAY: getKey("ALLOW_AUTOPLAY", "false") === "true",

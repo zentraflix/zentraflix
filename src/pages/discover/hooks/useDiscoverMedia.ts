@@ -22,8 +22,8 @@ import {
 } from "@/backend/metadata/traktApi";
 import { conf } from "@/setup/config";
 import { useLanguageStore } from "@/stores/language";
-import { getTmdbLanguageCode } from "@/utils/language";
 import { getUsersCountry } from "@/utils/country";
+import { getTmdbLanguageCode } from "@/utils/language";
 
 // Shuffle array utility
 const shuffleArray = <T>(array: T[]): T[] => {

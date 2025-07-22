@@ -10,7 +10,7 @@ function getCountryFromLocale() {
 // Function to get user's country from IP address using an external service
 async function getCountryFromIP() {
   try {
-    const response = await fetch(conf().CORS_PROXY_URL);
+    const response = await fetch(conf().PROXY_URLS[0]);
     const data = await response.json();
     return data.countryCode;
   } catch (error) {
