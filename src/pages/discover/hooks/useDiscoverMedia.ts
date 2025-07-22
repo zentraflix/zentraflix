@@ -613,7 +613,7 @@ export function useDiscoverMedia({
               // Fall back to TMDB
               data = await fetchTMDBMedia(`/discover/${mediaType}`, {
                 with_watch_providers: id,
-                watch_region: "US",
+                watch_region: "India",
               });
               setSectionTitle(
                 mediaType === "movie"
@@ -629,7 +629,7 @@ export function useDiscoverMedia({
             // Use TMDB if no Trakt endpoint exists for this provider
             data = await fetchTMDBMedia(`/discover/${mediaType}`, {
               with_watch_providers: id,
-              watch_region: "US",
+              watch_region: "India",
             });
             setSectionTitle(
               mediaType === "movie"
