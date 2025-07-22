@@ -461,7 +461,7 @@ export function OnboardingPage() {
         <div>
           <Trans i18nKey="onboarding.start.moreInfo.explainer.outro">
             <a
-              href="https://discord.com/invite/7z6znYgrTG"
+              href="https://t.me/Zentraflix"
               target="_blank"
               rel="noopener noreferrer"
               className="text-type-link"
