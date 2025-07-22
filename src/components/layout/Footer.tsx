@@ -83,7 +83,7 @@ export function Footer() {
           <FooterLink icon={Icons.TELEGRAM} href={conf().DISCORD_LINK}>
             {t("footer.links.discord")}
           </FooterLink>
-          <FooterLink href="https://rentry.co/h5mypdfs" icon={Icons.TIP_JAR}>
+          <FooterLink href="https://rentry.co/u2s7q7xe" icon={Icons.TIP_JAR}>
             {t("footer.links.funding")}
           </FooterLink>
           <div className="inline md:hidden">

@@ -305,7 +305,7 @@ export function LinksDropdown(props: { children: React.ReactNode }) {
             />
             <CircleDropdownLink href="/support" icon={Icons.SUPPORT} />
             <CircleDropdownLink
-              href="https://rentry.co/h5mypdfs"
+              href="https://rentry.co/u2s7q7xe"
               icon={Icons.TIP_JAR}
             />
           </div>
